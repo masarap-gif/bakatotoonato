@@ -19,26 +19,37 @@ public class NodeTransac {
      private String transacId;
      private String status;
      private double amt;
+     private String genre;
       private NodeHistory book; 
      NodeTransac next;
      
-   public  NodeTransac(String UserId, int isbn,String transacId , Date dueDate, Date borrowDate){
+   public  NodeTransac(String UserId, int isbn,String transacId , Date dueDate, Date borrowDate,String genre){
          this.ISBN = isbn;
          this.UserId = UserId;
          this.borrwDate = borrowDate;
          this.transacId = transacId;
          this.dueDate = dueDate;
+         this.genre = genre;
+        next = null;
+     }
+    public  NodeTransac(String UserId, int isbn,String transacId , Date dueDate, Date borrowDate){
+         this.ISBN = isbn;
+         this.UserId = UserId;
+         this.borrwDate = borrowDate;
+         this.transacId = transacId;
+         this.dueDate = dueDate;
+         
         next = null;
      }
    
-    public  NodeTransac(String transacId, int isbn,String userId , Date dueDate, Date borrowDate,double amt , String status){
+    public  NodeTransac(String transacId, int isbn,String userId , Date dueDate, Date borrowDate,double amt , String genre){
          this.ISBN = isbn;
          this.UserId = userId;
          this.borrwDate = borrowDate;
          this.transacId = transacId;
          this.dueDate = dueDate;
          this.price = amt;
-         this.status = status;
+         this.genre = genre;
         next = null;
      }
       public  NodeTransac(String transacId, int isbn,String userId , Date dueDate, Date borrowDate,double amt , String status,NodeHistory book){
@@ -71,6 +82,12 @@ public class NodeTransac {
      }
      public Date borrowDate(){
          return borrwDate;
+     }
+     public String genre(){
+         return genre;
+     }
+     public void setGenre(String genre){
+         this.genre = genre;
      }
 
      public void setUserID(String id){

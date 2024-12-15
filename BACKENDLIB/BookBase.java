@@ -8,13 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author ivan
  */
  public abstract interface BookBase {
-     
+     static ArrayList<String> genreList = new ArrayList<>((List.of("Fiction", "Non-Fiction", "Education")));
      static ArrayList<String> title = new ArrayList<>();
     static ArrayList<String> author = new ArrayList<>();
     static ArrayList<Integer> ISBN = new ArrayList<>();
@@ -36,8 +37,14 @@ import java.util.Date;
         
       
             
-      
-        public static String []genre ={ "Fiction", "Non-Fiction", "Education","Select genre"};
+         public static void addGenre(String newGenre) {
+        if (!genreList.contains(newGenre)) {
+            genreList.add(newGenre);  // Add the genre only if it's not already in the list
+        }
+    }
+         
+        
+           
   
    
     

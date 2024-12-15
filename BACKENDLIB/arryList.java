@@ -34,14 +34,21 @@ public class arryList {
      
       private static ArrayList<NodeTransac> transactions = new ArrayList<>();
        public static ArrayList<NodeTransac> transactionsRecords = new ArrayList<>();
+       
+       
       
     public static void addTransaction(String transactionID, int code, String userId, Date borrowDate, Date dueDate, double amount, String status) {
     NodeTransac transaction = new NodeTransac(transactionID, code, userId, dueDate, borrowDate, amount, status);
     transactions.add(transaction);
        TransacId.add(transactionID);
 }
-      public static void addTransaction(String transactionID, int code, String userId, Date borrowDate, Date dueDate) {
-    NodeTransac transaction = new NodeTransac(transactionID, code, userId, dueDate, borrowDate);
+//      public static void addTransaction(String transactionID, int code, String userId, Date borrowDate, Date dueDate) {
+//    NodeTransac transaction = new NodeTransac(transactionID, code, userId, dueDate, borrowDate);
+//    transactions.add(transaction);
+//       TransacId.add(transactionID);
+//}
+           public static void addTransaction(String transactionID, int code, String userId, Date borrowDate, Date dueDate,String genre) {
+    NodeTransac transaction = new NodeTransac(transactionID, code, userId, dueDate, borrowDate,genre);
     transactions.add(transaction);
        TransacId.add(transactionID);
 }
@@ -99,6 +106,10 @@ public void getUser(String user){
         
     }
 }
+public int getTransactionCount() {
+ 
+    return transactions.size();
+}
    
 //
 //    public static ArrayList<NodeTransac> getTransactions() {
@@ -108,6 +119,54 @@ public void getUser(String user){
     public static ArrayList<NodeTransac> getTransactions() {
       return transactions;
     }
+  public void quickSortTransactionsById() {
+    quickSort(0, transactions.size() - 1); // Initial call to QuickSort
+}
+
+// QuickSort helper method
+private void quickSort(int low, int high) {
+    if (low < high) {
+        // Find the pivot index
+        int pivotIndex = partition(low, high);
+
+        // Recursively sort the two halves
+        quickSort(low, pivotIndex - 1); // Left half
+        quickSort(pivotIndex + 1, high); // Right half
+    }
+}
+
+// Partition method that rearranges the elements around the pivot
+private int partition(int low, int high) {
+    // Select the pivot (you can choose any element; here, we use the last element)
+    String pivot = transactions.get(high).getID();
+    
+    // Pointer for the smaller element index
+    int i = low - 1;
+
+    // Loop through the list and rearrange based on pivot
+    for (int j = low; j < high; j++) {
+        // Compare the current transaction's ID with the pivot
+        if (transactions.get(j).getID().compareTo(pivot) <= 0) {
+            // Swap transactions[j] and transactions[i + 1]
+            i++;
+            swap(i, j);
+        }
+    }
+
+    // Swap the pivot element with the element at i + 1
+    swap(i + 1, high);
+
+    // Return the pivot index after it has been placed in the correct position
+    return i + 1;
+}
+
+// Swap two elements in the transactions list
+private void swap(int i, int j) {
+    NodeTransac temp = transactions.get(i);
+    transactions.set(i, transactions.get(j));
+    transactions.set(j, temp);
+}
+ 
 
   public static void archiveTransaction(NodeTransac transaction) {
     transactionsRecords.add(transaction);
